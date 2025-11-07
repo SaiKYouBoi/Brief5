@@ -1,0 +1,56 @@
+{
+  "spacecraft": [
+    {
+      "id": "odyssey",
+      "name": "SV Odyssey",
+      "class": "Interplanetary",
+      "description": "Our flagship interplanetary spacecraft designed for long-duration missions to Mars and beyond. Features advanced life support and artificial gravity.",
+      "capacity": 50,
+      "maxSpeed": "100,000 km/h",
+      "range": "Unlimited (solar powered)",
+      "features": [
+        "Artificial gravity ring",
+        "Advanced radiation shielding",
+        "Hydroponic gardens",
+        "Medical bay",
+        "Recreation facilities"
+      ],
+      "image": "/images/spacecraft/odyssey.jpg",
+      "usedFor": ["mars", "europa", "titan", "venus-clouds"]
+    },
+    {
+      "id": "lunar-express",
+      "name": "Lunar Express",
+      "class": "Lunar Shuttle",
+      "description": "High-frequency shuttle service between Earth and Moon. Quick, comfortable, and reliable for lunar tourism.",
+      "capacity": 25,
+      "maxSpeed": "40,000 km/h",
+      "range": "Earth-Moon round trip",
+      "features": [
+        "Rapid transit capability",
+        "Panoramic windows",
+        "Comfort seating",
+        "Quick boarding"
+      ],
+      "image": "/images/spacecraft/lunar-express.jpg",
+      "usedFor": ["moon"]
+    },
+    {
+      "id": "orbital-one",
+      "name": "Orbital One",
+      "class": "Space Station",
+      "description": "Luxury orbital habitat serving as both destination and transfer station for interplanetary journeys.",
+      "capacity": 100,
+      "maxSpeed": "27,000 km/h (orbital velocity)",
+      "range": "Low Earth Orbit",
+      "features": [
+        "Multiple viewing decks",
+        "Zero-g recreation areas",
+        "Research facilities",
+        "Hotel amenities"
+      ],
+      "image": "/images/spacecraft/orbital-one.jpg",
+      "usedFor": ["orbital-station"]
+    }
+  ]
+}
