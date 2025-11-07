@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - SpaceVoyager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'space-dark': '#0a0a18',
+                        'space-blue': '#1a1a2e',
+                        'space-purple': '#16213e',
+                        'neon-blue': '#0ea5e9',
+                        'neon-purple': '#8b5cf6',
+                        'neon-cyan': '#06b6d4',
+                    },
+                    fontFamily: {
+                        'orbitron': ['Orbitron', 'sans-serif'],
+                        'exo': ['Exo 2', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #0a0a18, #1a1a2e, #16213e);
+            background-attachment: fixed;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        .glow {
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.5);
+        }
+        
+        .text-glow {
+            text-shadow: 0 0 10px rgba(14, 165, 233, 0.7);
+        }
+        
+        .content-card {
+            background: rgba(26, 26, 46, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 15px;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #0ea5e9, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, #0ea5e9, #8b5cf6);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(14, 165, 233, 0.4);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #0ea5e9, #8b5cf6);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #0ea5e9;
+        }
+    </style>
+</head>
+<body class="text-white font-exo min-h-screen">
+    <!-- Stars Background -->
+    <div id="stars-container"></div>
+    
+    <!-- Navigation -->
+    <nav class="bg-space-dark/80 backdrop-blur-md border-b border-neon-blue/20 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-neon-blue to-neon-purple flex items-center justify-center glow">
+                    <i class="fas fa-rocket text-white"></i>
+                </div>
+                <a href="index.html" class="font-orbitron text-xl font-bold text-glow">SpaceVoyager</a>
+            </div>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link hover:text-neon-blue transition-colors">Home</a>
+                <a href="destinations.html" class="nav-link hover:text-neon-blue transition-colors">Destinations</a>
+                <a href="booking.html" class="nav-link hover:text-neon-blue transition-colors">Booking</a>
+                <a href="about.html" class="nav-link hover:text-neon-blue transition-colors text-neon-blue">About</a>
+                <a href="login.html" class="nav-link hover:text-neon-blue transition-colors">Login</a>
+            </div>
+            
+            <div class="md:hidden">
+                <button class="text-white focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 relative z-10">
+        <!-- Page Header -->
+        <section class="py-12 text-center">
+            <h1 class="font-orbitron text-4xl md:text-5xl font-bold mb-6 text-glow">About SpaceVoyager</h1>
+            <p class="text-xl max-w-3xl mx-auto text-gray-300">
+                Pioneering the future of space tourism and making the cosmos accessible to all.
+            </p>
+        </section>
+
+        <!-- Our Mission -->
+        <section class="py-12">
+            <div class="content-card p-8 mb-12">
+                <h2 class="font-orbitron text-3xl mb-6 text-glow">Our Mission</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <p class="text-gray-300 text-lg mb-6">
+                            At SpaceVoyager, we believe that space exploration should not be limited to astronauts and scientists. 
+                            Our mission is to open the final frontier to everyone who dreams of seeing Earth from above, walking on 
+                            other worlds, and experiencing the wonder of our universe firsthand.
+                        </p>
+                        <p class="text-gray-300 text-lg">
+                            Founded in 2025 by a team of former NASA engineers and visionary entrepreneurs, SpaceVoyager combines 
+                            cutting-edge technology with luxurious comfort to create unforgettable space travel experiences.
+                        </p>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="w-64 h-64 rounded-full bg-gradient-to-r from-neon-blue to-neon-purple flex items-center justify-center glow">
+                            <i class="fas fa-rocket text-white text-6xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Values -->
+        <section class="py-12">
+            <h2 class="font-orbitron text-3xl text-center mb-12 text-glow">Our Values</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="content-card p-6 text-center">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-neon-blue to-neon-cyan flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-shield-alt text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-orbitron text-xl mb-3">Safety First</h3>
+                    <p class="text-gray-300">
+                        We prioritize passenger safety above all else, with redundant systems and rigorous testing protocols.
+                    </p>
+                </div>
+                <div class="content-card p-6 text-center">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-neon-purple to-pink-500 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-leaf text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-orbitron text-xl mb-3">Sustainable Exploration</h3>
+                    <p class="text-gray-300">
+                        Our operations are designed to minimize environmental impact and promote responsible space tourism.
+                    </p>
+                </div>
+                <div class="content-card p-6 text-center">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-users text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-orbitron text-xl mb-3">Accessibility</h3>
+                    <p class="text-gray-300">
+                        We're committed to making space travel available to as many people as possible through innovative financing.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Journey -->
+        <section class="py-12">
+            <div class="content-card p-8">
+                <h2 class="font-orbitron text-3xl mb-8 text-glow">Our Journey</h2>
+                <div class="space-y-8">
+                    <div class="timeline-item">
+                        <h3 class="font-orbitron text-xl mb-2 text-neon-blue">2025 - Foundation</h3>
+                        <p class="text-gray-300">
+                            SpaceVoyager founded by Dr. Elena Rodriguez and Marcus Thorne with the vision of commercial space tourism.
+                        </p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="font-orbitron text-xl mb-2 text-neon-blue">2027 - First Test Flight</h3>
+                        <p class="text-gray-300">
+                            Successful unmanned test flight of the Odyssey spacecraft to low Earth orbit and back.
+                        </p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="font-orbitron text-xl mb-2 text-neon-blue">2029 - Lunar Tourism</h3>
+                        <p class="text-gray-300">
+                            First commercial flight around the Moon with four civilian passengers aboard.
+                        </p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="font-orbitron text-xl mb-2 text-neon-blue">2031 - Mars Initiative</h3>
+                        <p class="text-gray-300">
+                            Announcement of the Mars colonization program and beginning of construction on the first Martian habitat.
+                        </p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="font-orbitron text-xl mb-2 text-neon-blue">2033 - Present Day</h3>
+                        <p class="text-gray-300">
+                            Regular flights to multiple destinations including the Moon, Mars, and orbital hotels. Over 500 passengers served.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Team -->
+        <section class="py-12">
+            <h2 class="font-orbitron text-3xl text-center mb-12 text-glow">Meet Our Leadership</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="content-card p-6 text-center">
+                    <div class="w-24 h-24 rounded-full bg-gradient-to-r from-neon-blue to-neon-purple flex items-center justify-center mx-auto mb-4">
+                        <span class="text-white font-bold text-xl">ER</span>
+                    </div>
+                    <h3 class="font-orbitron text-xl mb-1">Dr. Elena Rodriguez</h3>
+                    <p class="text-neon-blue mb-3">CEO & Founder</p>
+                    <p class="text-gray-300 text-sm">
+                        Former NASA engineer with 15 years of experience in spacecraft design and propulsion systems.
+                    </p>
+                </div>
+                <div class="content-card p-6 text-center">
+                    <div class="w-24 h-24 rounded-full bg-gradient-to-r from-neon-cyan to-neon-blue flex items-center justify-center mx-auto mb-4">
+                        <span class="text-white font-bold text-xl">MT</span>
+                    </div>
+                    <h3 class="font-orbitron text-xl mb-1">Marcus Thorne</h3>
+                    <p class="text-neon-blue mb-3">CTO & Co-Founder</p>
+                    <p class="text-gray-300 text-sm">
+                        Aerospace entrepreneur and visionary behind reusable spacecraft technology.
+                    </p>
+                </div>
+                <div class="content-card p-6 text-center">
+                    <div class="w-24 h-24 rounded-full bg-gradient-to-r from-neon-purple to-pink-500 flex items-center justify-center mx-auto mb-4">
+                        <span class="text-white font-bold text-xl">SK</span>
+                    </div>
+                    <h3 class="font-orbitron text-xl mb-1">Dr. Sarah Kim</h3>
+                    <p class="text-neon-blue mb-3">Chief Medical Officer</p>
+                    <p class="text-gray-300 text-sm">
+                        Space medicine specialist ensuring passenger health and safety during space travel.
+                    </p>
+                </div>
+                <div class="content-card p-6 text-center">
+                    <div class="w-24 h-24 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 flex items-center justify-center mx-auto mb-4">
+                        <span class="text-white font-bold text-xl">JR</span>
+                    </div>
+                    <h3 class="font-orbitron text-xl mb-1">James Robinson</h3>
+                    <p class="text-neon-blue mb-3">Head of Astronaut Training</p>
+                    <p class="text-gray-300 text-sm">
+                        Former astronaut with multiple space missions and extensive extravehicular experience.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="py-12 text-center">
+            <div class="content-card p-8 max-w-2xl mx-auto">
+                <h2 class="font-orbitron text-3xl mb-4 text-glow">Join Our Mission</h2>
+                <p class="text-gray-300 text-lg mb-6">
+                    Be part of the next chapter in human exploration. Your journey to the stars begins here.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="booking.html" class="btn-primary text-white px-6 py-3 rounded-lg font-bold">
+                        Book Your Journey
+                    </a>
+                    <a href="#" class="border border-neon-blue text-neon-blue px-6 py-3 rounded-lg font-bold hover:bg-neon-blue/10 transition-colors">
+                        Careers at SpaceVoyager
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-space-dark border-t border-neon-blue/20 py-8 mt-12 relative z-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2 mb-2">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-neon-blue to-neon-purple flex items-center justify-center">
+                            <i class="fas fa-rocket text-white text-sm"></i>
+                        </div>
+                        <span class="font-orbitron text-lg">SpaceVoyager</span>
+                    </div>
+                    <p class="text-gray-400 text-sm">© 2023 SpaceVoyager. All rights reserved.</p>
+                </div>
+                
+                <div class="flex space-x-6 mb-4 md:mb-0">
+                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Create stars background
+        function createStars() {
+            const container = document.getElementById('stars-container');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(star);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+        });
+    </script>
+</body>
+</html>
