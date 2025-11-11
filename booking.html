@@ -137,12 +137,30 @@
                 <a href="index.html" class="font-orbitron text-xl font-bold text-glow">SpaceVoyager</a>
             </div>
 
-            <div class="hidden md:flex space-x-8">
+            <div class="hidden md:flex space-x-8 items-center">
+                
                 <a href="index.html" class="nav-link hover:text-neon-blue transition-colors">Home</a>
                 <a href="destinations.html" class="nav-link hover:text-neon-blue transition-colors">Destinations</a>
                 <a href="booking.html" class="nav-link hover:text-neon-blue transition-colors">Booking</a>
                 <a href="about.html" class="nav-link hover:text-neon-blue transition-colors">About</a>
                 <a href="login.html" class="nav-link hover:text-neon-blue transition-colors text-neon-blue">Login</a>
+                <!-- Profile dropdown-->
+                <div class="useinfo relative inline-block text-left">
+                    <button id="userMenuButton" type="button"
+                        class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 transition shadow">
+                        <i class="fas fa-user text-white text-1xl"></i>
+                    </button>
+
+                    <!-- Dropdown menu-->
+                    <div id="userDropdown"
+                        class="origin-top-right absolute right-0 mt-2 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50 hidden">
+                        <div class="py-1">
+                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
+                            <button id="logoutBtn" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Log
+                                Out</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="md:hidden">
@@ -152,12 +170,12 @@
             </div>
         </div>
     </nav>
- <section class="py-12 px-6 text-center">
-            <h1 class="font-orbitron text-4xl md:text-5xl font-bold mb-6 text-glow">Book Your Space Journey</h1>
-            <p class="text-xl max-w-3xl mx-auto text-gray-300">
-                Begin your adventure to the stars. Fill out the form below to reserve your spot on our next space voyage.
-            </p>
-        </section>
+    <section class="py-12 px-6 text-center">
+        <h1 class="font-orbitron text-4xl md:text-5xl font-bold mb-6 text-glow">Book Your Space Journey</h1>
+        <p class="text-xl max-w-3xl mx-auto text-gray-300">
+            Begin your adventure to the stars. Fill out the form below to reserve your spot on our next space voyage.
+        </p>
+    </section>
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8 relative z-10">
         <div class=" w-full max-w-md md:max-w-lg lg:max-w-[950px] mx-auto py-6">
@@ -219,7 +237,7 @@
                         <div class="text-left mb-8">
                             <h1 class="font-orbitron text-3xl mb-2 text-glow">Personal Information</h1>
                         </div>
-            
+
                         <div class="flex md:flex-row flex-col gap-4">
                             <div class="space-y-6 md:w-1/2">
                                 <div>
@@ -253,18 +271,20 @@
                                 placeholder="Any special requirments or notes..."></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn-primary text-white w-full py-3 rounded-lg font-bold glow">
-                       Add Passanger
+                    <button type="submit"
+                        class="border border-neon-blue w-full text-neon-blue px-8 py-3 rounded-lg font-bold hover:bg-neon-blue/10 transition-colors">
+                        Add Passanger
                     </button>
                     <button type="submit" class="btn-primary text-white w-full py-3 rounded-lg font-bold glow">
                         Confirm Booking
                     </button>
                     <div class="mt-6 pt-6 border-t border-neon-blue/20">
-                    <p class="text-gray-400 text-center">
-                        By confirming, you agree to our
-                        <a href="#" class="text-neon-blue hover:underline">Termes of Service</a> and<a href="#" class="text-neon-blue hover:underline"> Space Travel Agreement.</a> 
-                    </p>
-                </div>
+                        <p class="text-gray-400 text-center">
+                            By confirming, you agree to our
+                            <a href="#" class="text-neon-blue hover:underline">Termes of Service</a> and<a href="#"
+                                class="text-neon-blue hover:underline"> Space Travel Agreement.</a>
+                        </p>
+                    </div>
             </div>
             </form>
         </div>
@@ -303,33 +323,7 @@
         </div>
     </footer>
 
-    <script>
-        // Create stars background
-        function createStars() {
-            const container = document.getElementById('stars-container');
-            const starCount = 150;
-
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-
-                const size = Math.random() * 2 + 1;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-
-                star.style.animationDelay = `${Math.random() * 5}s`;
-
-                container.appendChild(star);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            createStars();
-        });
-    </script>
+    <script src="bookingpage.js"></script>
 </body>
 
 </html>

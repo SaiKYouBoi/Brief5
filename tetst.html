@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>User Dropdown Example</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome for user icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+  <!-- Profile Dropdown Wrapper -->
+  <div class="relative inline-block text-left">
+    <!-- Logged-in User Icon Button -->
+    <button id="userMenuButton" type="button" class="flex items-center justify-center w-12 h-12 rounded-full bg-gray-800 hover:bg-gray-700 transition shadow">
+      <i class="fas fa-user text-white text-2xl"></i>
+    </button>
+
+    <!-- Dropdown Menu (hidden by default) -->
+    <div id="userDropdown" class="origin-top-right absolute right-0 mt-2 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50 ">
+      <div class="py-1">
+        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
+        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Settings</a>
+        <button id="logoutBtn" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Log Out</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script to toggle the dropdown -->
+  <script>
+    const userMenuButton = document.getElementById('userMenuButton');
+    const userDropdown = document.getElementById('userDropdown');
+
+    userMenuButton.addEventListener('click', function (e) {
+      e.stopPropagation();
+      userDropdown.classList.toggle('hidden');
+    });
+
+    // Hid  e dropdown if click outside
+    document.addEventListener('click', function (e) {
+      if (!userDropdown.classList.contains('hidden')) {
+        userDropdown.classList.add('hidden');
+      }
+    });
+
+    // Optional: handle logout
+    document.getElementById('logoutBtn').addEventListener('click', function () {
+      localStorage.removeItem('isLoggedIn');
+      alert('Logged out!');
+      // Optionally, redirect or update the UI
+    });
+  </script>
+</body>
+</html>
