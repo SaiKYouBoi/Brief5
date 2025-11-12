@@ -46,39 +46,36 @@ document.addEventListener("DOMContentLoaded", function () {
       membership: "Explorer",
     },
   ];
+  const loginform = document.getElementById("loginForm");
 
-  document
-    .getElementById("loginForm")
-    .addEventListener("submit", function (event) {
+  if (loginform) {
+    loginform.addEventListener("submit", function (event) {
       event.preventDefault();
-      
-      const loginform = document.getElementById("loginForm");
-      
-      if (loginform) {
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
 
-        const user = Users.find(
-          (u) => u.email === email && u.password === password
-        );
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-        if (user) {
-          // ila true what gonna happen
-          const userr = {
-            id: user.id,
-            email: user.email,
-            name: user.name,
-            isLoggedIn: true,
-          };
-          localStorage.setItem("currentUser", JSON.stringify(userr));
-          // alert("Sucess")
-          window.location.href = "index.html";
-        } else {
-          // ila false what gonna happen
-          alert("The credentials are incorrect, please try again.");
-        }
+      const user = Users.find(
+        (u) => u.email === email && u.password === password
+      );
+
+      if (user) {
+        // ila true what gonna happen
+        const userr = {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          isLoggedIn: true,
+        };
+        localStorage.setItem("currentUser", JSON.stringify(userr));
+        // alert("Sucess")
+        window.location.href = "index.html";
+      } else {
+        // ila false what gonna happen
+        alert("The credentials are incorrect, please try again.");
       }
     });
+  }
 });
 
 function logout() {
@@ -127,22 +124,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // console.log(userDropdown);
   // console.log(userMenuButton);
+  if (userMenuButton && userDropdown) {
+    userMenuButton.addEventListener("click", function (e) {
+      e.stopPropagation();
+      userDropdown.classList.toggle("hidden");
+    });
 
-  userMenuButton.addEventListener("click", function (e) {
-    e.stopPropagation();
-    userDropdown.classList.toggle("hidden");
-  });
-
-  // Hide dropdown if click outside
-  document.addEventListener("click", function (e) {
-    if (!userDropdown.classList.contains("hidden")) {
-      userDropdown.classList.add("hidden");
-    }
-  });
-
+    // Hide dropdown if click outside
+    document.addEventListener("click", function (e) {
+      if (!userDropdown.classList.contains("hidden")) {
+        userDropdown.classList.add("hidden");
+      }
+    });
+  
   //logout
   document.getElementById("logoutBtn").addEventListener("click", function () {
     localStorage.removeItem("currentUser");
     location.reload();
   });
+  }
 });
