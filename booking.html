@@ -143,27 +143,9 @@
                 <a href="destinations.html" class="nav-link hover:text-neon-blue transition-colors">Destinations</a>
                 <a href="booking.html" class="nav-link hover:text-neon-blue transition-colors">Booking</a>
                 <a href="about.html" class="nav-link hover:text-neon-blue transition-colors">About</a>
-                <a href="login.html" class="nav-link hover:text-neon-blue transition-colors text-neon-blue">Login</a>
-                <!-- Profile dropdown-->
-                <div class="useinfo relative inline-block text-left">
-                    <button id="userMenuButton" type="button"
-                        class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 transition shadow">
-                        <i class="fas fa-user text-white text-1xl"></i>
-                    </button>
-
-                    <!-- Dropdown menu-->
-                    <div id="userDropdown"
-                        class="origin-top-right absolute right-0 mt-2 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50 hidden">
-                        <div class="py-1">
-                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
-                            <button id="logoutBtn" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Log
-                                Out</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="md:hidden">
+                <a href="login.html" class="nav-link hover:text-neon-blue transition-colors text-neon-blue" id="logginanchor">Login</a>
+                
+                <div class="md:hidden">
                 <button class="text-white focus:outline-none">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
@@ -324,6 +306,7 @@
     </footer>
 
     <script src="bookingpage.js"></script>
+    <script src="login.js"></script>
 </body>
 
 </html>

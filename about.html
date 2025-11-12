@@ -130,20 +130,20 @@
                 <a href="index.html" class="font-orbitron text-xl font-bold text-glow">SpaceVoyager</a>
             </div>
             
-            <div class="hidden md:flex space-x-8">
+            <div class="hidden md:flex space-x-8 items-center">
                 <a href="index.html" class="nav-link hover:text-neon-blue transition-colors">Home</a>
                 <a href="destinations.html" class="nav-link hover:text-neon-blue transition-colors">Destinations</a>
                 <a href="booking.html" class="nav-link hover:text-neon-blue transition-colors">Booking</a>
                 <a href="about.html" class="nav-link hover:text-neon-blue transition-colors text-neon-blue">About</a>
-                <a href="login.html" class="nav-link hover:text-neon-blue transition-colors">Login</a>
-            </div>
-            
+                <a href="login.html" class="nav-link hover:text-neon-blue transition-colors" id="logginanchor">Login</a>
+            </div>   
             <div class="md:hidden">
                 <button class="text-white focus:outline-none">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
+         </div>
     </nav>
 
     <!-- Main Content -->
@@ -349,32 +349,7 @@
         </div>
     </footer>
 
-    <script>
-        // Create stars background
-        function createStars() {
-            const container = document.getElementById('stars-container');
-            const starCount = 150;
-            
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                
-                const size = Math.random() * 2 + 1;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-                
-                star.style.animationDelay = `${Math.random() * 5}s`;
-                
-                container.appendChild(star);
-            }
-        }
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            createStars();
-        });
-    </script>
+<script src="login.js"></script>
+
 </body>
 </html>
