@@ -170,9 +170,8 @@
                 <form class="space-y-6">
                     <div>
                         <label class="block text-gray-300 mb-2">Destination</label>
-                        <select type="text" class="form-input w-full px-4 py-3">
-                            <option value="" disabled selected hidden>Select your destination</option>
-                            <option value=""></option>
+                        <select type="text" class="form-input w-full px-4 py-3" id="destinationselect">
+                            <option value="" >Select your destination</option>
                         </select>
                     </div>
 
@@ -200,19 +199,19 @@
                     </div>
                     <div>
                         <label class="block text-gray-300 mb-2">Accommodation Type</label>
-                        <div class=" block w-full flex md:flex-row flex-col gap-4">
+                        <div class="acoomcontainer block w-full flex md:flex-row flex-col gap-4">
                             <div class="accom flex-1 h-full py-3 px-4">
                                 <h3 class="font-orbitron text-lg mb-2 text-glow text-neon-blue">Standard Cabin</h3>
                                 <p>Comfortable private quarters with basic amenities</p>
                             </div>
-                            <div class="accom flex-1 h-full py-3 px-4">
+                            <!-- <div class="accom flex-1 h-full py-3 px-4">
                                 <h3 class="font-orbitron text-lg mb-2 text-glow text-neon-blue">Luxury Suite</h3>
                                 <p>Spacious suite with premium amenities and viewports</p>
                             </div>
                             <div class="accom flex-1 h-full py-3 px-4">
                                 <h3 class="font-orbitron text-lg mb-2 text-glow text-neon-blue">Zero-G Pod</h3>
                                 <p>Advanced accommodation with zero-gravity experience</p>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="mt-6 pt-6 border-t border-neon-blue/20">

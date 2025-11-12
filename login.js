@@ -86,7 +86,6 @@ function logout() {
 function addingtonav() {
   const user = JSON.parse(localStorage.getItem("currentUser"));
   const linkinnav = document.getElementById("logginanchor");
-  // const linkinnav = document.querySelector('a[href="login.html"]');
 
   if (user && user.isLoggedIn) {
     // Replace anchor with profile
