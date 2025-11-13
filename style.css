@@ -76,6 +76,7 @@ body::before {
   pointer-events: none;
 }
 
+
 /* Stars Animation */
 .star {
   position: absolute;

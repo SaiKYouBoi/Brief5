@@ -1,6 +1,6 @@
 let destinations = [];
 let accommodations = [];
-  let selectedPassengers = "SoloTravaler";
+let selectedPassengers = "SoloTravaler";
 // fetch both destinations and accommodations
 function getDestinations() {
   return Promise.all([
@@ -27,8 +27,7 @@ function getDestinations() {
 const destinationSelect = document.getElementById("destinationselect");
 const acoomContainer = document.getElementById("acoomContainer");
 const pasengersinfos = document.getElementById("pasengersinfos");
-
-
+const addingpassanger = document.getElementById("addpaasenger");
 
 function initDestinationSelect() {
   destinations.forEach((destination) => {
@@ -108,7 +107,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // console.log(this.value);
   });
 
-
   const initialRadio = document.querySelector(
     'input[name="passengers"][value="SoloTravaler"]'
   );
@@ -134,13 +132,20 @@ function addfroms() {
   pasengersinfos.innerHTML = "";
 
   let count = 1;
-   if(selectedPassengers=="SoloTravaler"){
-
-   }else if(selectedPassengers=="Couple"){
-
-   }else if(selectedPassengers=="Group"){
-
-   }
+  if (selectedPassengers == "SoloTravaler") {
+    addingpassanger.disabled = true;
+    addingpassanger.classList.add("cursor-not-allowed", "opacity-60");
+    addingpassanger.classList.remove("cursor-pointer");
+    
+  } else if (selectedPassengers == "Couple") {
+    addingpassanger.disabled = true;
+    addingpassanger.classList.add("cursor-not-allowed", "opacity-60");
+    addingpassanger.classList.remove("cursor-pointer");
+  } else if (selectedPassengers == "Group") {
+    addingpassanger.disabled = false;
+    addingpassanger.classList.remove("cursor-not-allowed", "opacity-60");
+    addingpassanger.classList.add("cursor-pointer");
+  }
 
   switch (selectedPassengers) {
     case "Couple":
