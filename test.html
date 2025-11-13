@@ -312,7 +312,7 @@
                 destinationInfo.style.display = 'none';
                 return;
             }
-            
+         
             // Clear previous accommodations
             accommodationsContainer.innerHTML = '';
             
@@ -327,7 +327,6 @@
                 const name = document.createElement('div');
                 name.className = 'accommodation-name';
                 name.textContent = accommodationType.charAt(0).toUpperCase() + accommodationType.slice(1) + ' Accommodation';
-                
                 const desc = document.createElement('div');
                 desc.className = 'accommodation-desc';
                 desc.textContent = accommodationDescriptions[accommodationType] || 'Comfortable space accommodation for your journey.';
