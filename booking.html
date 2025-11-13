@@ -138,19 +138,20 @@
             </div>
 
             <div class="hidden md:flex space-x-8 items-center">
-                
+
                 <a href="index.html" class="nav-link hover:text-neon-blue transition-colors">Home</a>
                 <a href="destinations.html" class="nav-link hover:text-neon-blue transition-colors">Destinations</a>
                 <a href="booking.html" class="nav-link hover:text-neon-blue transition-colors">Booking</a>
                 <a href="about.html" class="nav-link hover:text-neon-blue transition-colors">About</a>
-                <a href="login.html" class="nav-link hover:text-neon-blue transition-colors text-neon-blue" id="logginanchor">Login</a>
-                
+                <a href="login.html" class="nav-link hover:text-neon-blue transition-colors text-neon-blue"
+                    id="logginanchor">Login</a>
+
                 <div class="md:hidden">
-                <button class="text-white focus:outline-none">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
+                    <button class="text-white focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
             </div>
-        </div>
     </nav>
     <section class="py-12 px-6 text-center">
         <h1 class="font-orbitron text-4xl md:text-5xl font-bold mb-6 text-glow">Book Your Space Journey</h1>
@@ -171,7 +172,7 @@
                     <div>
                         <label class="block text-gray-300 mb-2">Destination</label>
                         <select type="text" class="form-input w-full px-4 py-3" id="destinationselect">
-                            <option value="" >Select your destination</option>
+                            <option value="">Select your destination</option>
                         </select>
                     </div>
 
@@ -184,15 +185,15 @@
                         <label class="block text-gray-300 mb-2">Numbers of Passengers</label>
                         <div class="flex flex-row gap-4 items-center">
                             <div><label>
-                                    <input type="radio" name="destination" value="SoloTravaler">
+                                    <input type="radio" name="passengers" value="SoloTravaler">
                                     Solo Traveler
                                 </label></div>
                             <div><label>
-                                    <input type="radio" name="destination" value="Couple">
+                                    <input type="radio" name="passengers" value="Couple">
                                     Couple(2)
                                 </label></div>
                             <div><label>
-                                    <input type="radio" name="destination" value="Group">
+                                    <input type="radio" name="passengers" value="Group">
                                     Group(3-6)
                                 </label></div>
                         </div>
@@ -200,60 +201,20 @@
                     <div>
                         <label class="block text-gray-300 mb-2">Accommodation Type</label>
                         <div class="block w-full flex md:flex-row flex-col gap-4" id="acoomContainer">
-                            <!-- <div class="accom flex-1 h-full py-3 px-4">
-                                <h3 class="font-orbitron text-lg mb-2 text-glow text-neon-blue">Standard Cabin</h3>
-                                <p>Comfortable private quarters with basic amenities</p>
-                            </div>
-                            <div class="accom flex-1 h-full py-3 px-4">
-                                <h3 class="font-orbitron text-lg mb-2 text-glow text-neon-blue">Luxury Suite</h3>
-                                <p>Spacious suite with premium amenities and viewports</p>
-                            </div>
-                            <div class="accom flex-1 h-full py-3 px-4">
-                                <h3 class="font-orbitron text-lg mb-2 text-glow text-neon-blue">Zero-G Pod</h3>
-                                <p>Advanced accommodation with zero-gravity experience</p>
-                            </div> -->
+
                         </div>
                     </div>
                     <div class="mt-6 pt-6 border-t border-neon-blue/20">
                         <div class="text-left mb-8">
                             <h1 class="font-orbitron text-3xl mb-2 text-glow">Personal Information</h1>
                         </div>
+                        <div id="pasengersinfos">
+                            
 
-                        <div class="flex md:flex-row flex-col gap-4">
-                            <div class="space-y-6 md:w-1/2">
-                                <div>
-                                    <label class="block text-gray-300 mb-2">First Name</label>
-                                    <input type="text" class="form-input w-full px-4 py-3"
-                                        placeholder="Enter your first name">
-                                </div>
-                                <div>
-                                    <label class="block text-gray-300 mb-2">Email Address</label>
-                                    <input type="text" class="form-input w-full px-4 py-3"
-                                        placeholder="Enter your email">
-                                </div>
-                            </div>
-                            <div class="space-y-6 md:w-1/2">
-                                <div>
-                                    <label class="block text-gray-300 mb-2">Last Name</label>
-                                    <input type="text" class="form-input w-full px-4 py-3"
-                                        placeholder="Enter your last name">
-                                </div>
-                                <div>
-                                    <label class="block text-gray-300 mb-2">Phone Number</label>
-                                    <input type="text" class="form-input w-full px-4 py-3"
-                                        placeholder="Enter your phone number">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-[24px]">
-                            <label class="block text-gray-300 mb-2">Special Requirements</label>
-                            <textarea type="text" class="form-input w-full px-4 py-3"
-                                placeholder="Any special requirments or notes..."></textarea>
                         </div>
                     </div>
                     <button type="submit"
-                        class="border border-neon-blue w-full text-neon-blue px-8 py-3 rounded-lg font-bold hover:bg-neon-blue/10 transition-colors">
+                        class="border border-neon-blue w-full text-neon-blue px-8 py-3 rounded-lg font-bold hover:bg-neon-blue/10 transition-colors" id="addpaasenger">
                         Add Passanger
                     </button>
                     <button type="submit" class="btn-primary text-white w-full py-3 rounded-lg font-bold glow">
