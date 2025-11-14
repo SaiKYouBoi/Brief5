@@ -96,6 +96,7 @@ function selectAccommodation(accomId, element) {
 
   selectedAccommodation = accomId;
   //console.log(accomId);
+  calculateTotalCost();
 }
 
 // Init on page load
@@ -104,6 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   destinationSelect.addEventListener("change", function () {
     displayAccommodations(this.value);
+    calculateTotalCost();
     // console.log(this.value);
   });
 
@@ -125,11 +127,17 @@ document.addEventListener("DOMContentLoaded", () => {
       addfroms();
     });
   });
+
+  // add passenger button listener
+    if (addingpassanger) {
+        addingpassanger.addEventListener("click", addPassengerformbtn);
+    }
 });
 
 function addfroms() {
   if (!pasengersinfos) return;
   pasengersinfos.innerHTML = "";
+
 
   let count = 1;
   if (selectedPassengers == "SoloTravaler") {
@@ -160,7 +168,9 @@ function addfroms() {
   }
 
   for (let i = 0; i < count; i++) {
+
     pasengersinfos.innerHTML += `
+    <div class="passform">
     <div class="text-left mb-8 mt-4">
                             <h1 class="font-orbitron text-2xl mb-2 text-glow">Person N°${
                               i + 1
@@ -198,8 +208,67 @@ function addfroms() {
                                 <textarea type="text" class="form-input w-full px-4 py-3"
                                     placeholder="Any special requirments or notes..."></textarea>
                             </div>
+                            </div>
                             `;
   }
+calculateTotalCost();
+}
+
+function addPassengerformbtn(event) {
+    event.preventDefault();
+    const existingforms = pasengersinfos.querySelectorAll(".passform")
+    console.log(existingforms)
+    const nextpass = existingforms.length + 1
+
+    
+    if(nextpass>6){
+        alert('Maximum 6 passengers allowed for group bookings');
+        return;
+    }
+
+    const newFormHTML = `
+        <div class="passform">
+            <div class="text-left mb-8 mt-4">
+                <h1 class="font-orbitron text-2xl mb-2 text-glow">Person N°${nextpass}: </h1>
+            </div>
+            <div class="flex md:flex-row flex-col gap-4">
+                <div class="space-y-6 md:w-1/2">
+                    <div>
+                        <label class="block text-gray-300 mb-2">First Name</label>
+                        <input type="text" class="form-input w-full px-4 py-3" placeholder="Enter your first name">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-2">Email Address</label>
+                        <input type="text" class="form-input w-full px-4 py-3" placeholder="Enter your email">
+                    </div>
+                </div>
+                <div class="space-y-6 md:w-1/2">
+                    <div>
+                        <label class="block text-gray-300 mb-2">Last Name</label>
+                        <input type="text" class="form-input w-full px-4 py-3" placeholder="Enter your last name">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-2">Phone Number</label>
+                        <input type="text" class="form-input w-full px-4 py-3" placeholder="Enter your phone number">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-[24px]">
+                <label class="block text-gray-300 mb-2">Special Requirements</label>
+                <textarea type="text" class="form-input w-full px-4 py-3" placeholder="Any special requirements or notes..."></textarea>
+            </div>
+        </div>
+    `;
+
+    pasengersinfos.insertAdjacentHTML('beforeend', newFormHTML);
+
+    if (nextpass === 6) {
+        addingpassanger.disabled = true;
+        addingpassanger.classList.add("cursor-not-allowed", "opacity-60");
+        addingpassanger.classList.remove("cursor-pointer");
+    }
+    calculateTotalCost();
 }
 
 // THE DATA I NEED:
@@ -210,3 +279,64 @@ function addfroms() {
 // priceperday of th accom
 // days: tDuration in the Destination JSON file
 // travel cost = Destination price + priceperday * tDuration * 2
+
+function calculateTotalCost() {
+
+    const totalCostSpan = document.getElementById("totalCost");
+
+    const destinationId = destinationSelect.value;
+    const destination = destinations.find(dest => dest.id === destinationId);
+
+    if (!destination) {
+        totalCostSpan.textContent = "0";
+        return;
+    }
+
+    
+    const accommodation = accommodations.find(acc => acc.id === selectedAccommodation);
+
+    if (!accommodation) {
+        totalCostSpan.textContent = destination.price; // only destination price
+        return;
+    }
+
+    const destPrice = destination.price;
+    const pricePerDay = accommodation.pricePerDay;
+    const duration = destination.tDuration;
+
+    const numberOfPassengers = pasengersinfos.querySelectorAll(".passform").length;
+    
+  
+    const accomPerPerson = pricePerDay * duration * 2;
+
+    const total = destPrice + (accomPerPerson * numberOfPassengers);
+
+    totalCostSpan.textContent = total.toLocaleString();
+}
+
+
+// get passangers data
+function getAllPassengerData() {
+    const passengerForms = pasengersinfos.querySelectorAll('.passform');
+    const passengerData = [];
+
+    passengerForms.forEach((form, index) => {
+        const passengerNumber = index + 1;
+
+        const inputs = form.querySelectorAll('input');
+        const textarea = form.querySelector('textarea');
+
+        const data = {
+            passengerNumber: passengerNumber,
+            firstName: inputs[0]?.value || '',
+            email: inputs[1]?.value || '',
+            lastName: inputs[2]?.value || '',
+            phone: inputs[3]?.value || '',
+            requirements: textarea?.value || ''
+        };
+
+        passengerData.push(data);
+    });
+    console.log(passengerData)
+    return passengerData;
+}
