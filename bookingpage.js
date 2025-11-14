@@ -325,44 +325,40 @@ function calculateTotalCost() {
     totalCostSpan.textContent = total.toLocaleString();
 }
 
-
-// get passangers data
-function getAllPassengerData() {
-    const passengerForms = pasengersinfos.querySelectorAll('.passform');
-    const passengerData = [];
-
-    passengerForms.forEach((form, index) => {
-        const passengerNumber = index + 1;
-
-        const inputs = form.querySelectorAll('input');
-        const textarea = form.querySelector('textarea');
-
-        const data = {
-            passengerNumber: passengerNumber,
-            firstName: inputs[0]?.value || '',
-            email: inputs[1]?.value || '',
-            lastName: inputs[2]?.value || '',
-            phone: inputs[3]?.value || '',
-            requirements: textarea?.value || ''
-        };
-
-        passengerData.push(data);
-    });
-    console.log(passengerData)
-    return passengerData;
-}
-
 const confirmbooking = document.getElementById("confirmbooking");
 
 confirmbooking.addEventListener("click", function (event) {
     event.preventDefault();
 
-    if (!validatePassengerForms()) {
+    if (destinationSelect.value === "") {
+        alert("Please select a destination.");
+        return;
+    }
+
+    const dateinput = document.getElementById("departuredate");
+    if (!dateinput.value) {
+        alert("Please select a departure date.");
+        return;
+    }
+
+    if (!validateAllPassengers()) {
         alert("Please fix the highlighted fields.");
         return;
     }
 
+    if (!selectedAccommodation) {
+        alert("Please select an accommodation type.");
+        return;
+    }
+
     alert("Booking confirmed!");
+
+    const booking = collectBookingData();
+    saveBooking(booking);
+
+    alert("Your booking has been successfully saved!");
+
+    window.location.href = "mybooking.html"; 
 });
 
 //form validation for tehe fields
@@ -421,14 +417,79 @@ function enableRealtimeValidation() {
 }
 
 function toggleSubmitButton() {
-    const confirmBooking = document.getElementById("confirmBooking");
     const valid = validateAllPassengers();
 
-    confirmBooking.disabled = !valid;
+    confirmbooking.disabled = !valid;
 
     if (!valid) {
-        confirmBooking.classList.add("opacity-50", "cursor-not-allowed");
+        confirmbooking.classList.add("opacity-50", "cursor-not-allowed");
     } else {
-        confirmBooking.classList.remove("opacity-50", "cursor-not-allowed");
+        confirmbooking.classList.remove("opacity-50", "cursor-not-allowed");
     }
+}
+
+// get passangers data
+function getAllPassengerData() {
+    const passengerForms = pasengersinfos.querySelectorAll('.passform');
+    const passengerData = [];
+
+    passengerForms.forEach((form, index) => {
+        const passengerNumber = index + 1;
+
+        const inputs = form.querySelectorAll('input');
+        const textarea = form.querySelector('textarea');
+
+        const data = {
+            passengerNumber: passengerNumber,
+            firstName: inputs[0]?.value || '',
+            email: inputs[1]?.value || '',
+            lastName: inputs[2]?.value || '',
+            phone: inputs[3]?.value || '',
+            requirements: textarea?.value || ''
+        };
+
+        passengerData.push(data);
+    });
+    console.log(passengerData)
+    return passengerData;
+}
+
+// colelcting booking data
+
+function collectBookingData() {
+    const destinationId = destinationSelect.value;
+    const destination = destinations.find(d => d.id === destinationId);
+
+    const accommodation = accommodations.find(a => a.id === selectedAccommodation);
+
+    const passengers = getAllPassengerData();
+
+    const booking = {
+        id: "bk-" + Date.now(),
+        user: JSON.parse(localStorage.getItem("currentUser")),
+        destination: {
+            id: destination.id,
+            name: destination.name,
+            price: destination.price,
+            tDuration: destination.tDuration
+        },
+        accommodation: {
+            id: accommodation.id,
+            name: accommodation.name,
+            pricePerDay: accommodation.pricePerDay
+        },
+        passengers: passengers,
+        totalCost: document.getElementById("totalCost").textContent,
+        bookingDate: document.getElementById("departuredate").value
+    };
+
+    return booking;
+}
+
+function saveBooking(booking) {
+    const all = JSON.parse(localStorage.getItem("bookings")) || [];
+
+    all.push(booking);
+
+    localStorage.setItem("bookings", JSON.stringify(all));  
 }

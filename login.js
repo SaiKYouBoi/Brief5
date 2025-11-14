@@ -102,6 +102,7 @@ function addingtonav() {
                         class="origin-top-right absolute right-0 mt-2 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50 hidden">
                         <div class="py-1">
                             <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">${user.name}</a>
+                            <a href="mybooking.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">My booking</a>
                             <button id="logoutBtn" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Log
                                 Out</button>
                         </div>
