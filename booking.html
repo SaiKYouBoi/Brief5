@@ -32,12 +32,22 @@
         }
     </script>
     <style>
+        .error-text.fade-in {
+            opacity: 1;
+            transition: opacity 0.25s ease-in-out;
+        }
+
+        .error-text {
+            opacity: 0;
+        }
+
+        /* adding paasaznger utton */
         #addingpassanger:disabled {
             cursor: not-allowed;
             opacity: 0.6;
         }
-    
-         #addingpassanger:hover {
+
+        #addingpassanger:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(14, 165, 233, 0.4);
         }
@@ -219,19 +229,21 @@
                             <h1 class="font-orbitron text-3xl mb-2 text-glow">Personal Information</h1>
                         </div>
                         <div id="pasengersinfos">
-                            
+
 
                         </div>
                     </div>
                     <div class="total-div login-card p-6">
-                        <h1 class="font-orbitron text-2xl mb-2 text-glow text-center">Total:$<span id="totalCost">0</span></h1>
+                        <h1 class="font-orbitron text-2xl mb-2 text-glow text-center">Total:$<span
+                                id="totalCost">0</span></h1>
                     </div>
                     <button type="submit"
                         class="addpassbutton border border-neon-blue w-full text-neon-blue px-8 py-3 rounded-lg font-bold hover:bg-neon-blue/10 transition-colors"
                         id="addpaasenger">
                         Add Passanger
                     </button>
-                    <button type="submit" class="btn-primary text-white w-full py-3 rounded-lg font-bold glow">
+                    <button type="submit" class="btn-primary text-white w-full py-3 rounded-lg font-bold glow"
+                        id="confirmbooking">
                         Confirm Booking
                     </button>
                     <div class="mt-6 pt-6 border-t border-neon-blue/20">
@@ -280,6 +292,7 @@
     </footer>
 
     <script src="bookingpage.js"></script>
+    <script src="validationform.js"></script>
     <script src="login.js"></script>
 </body>
 

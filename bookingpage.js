@@ -1,6 +1,7 @@
 let destinations = [];
 let accommodations = [];
 let selectedPassengers = "SoloTravaler";
+
 // fetch both destinations and accommodations
 function getDestinations() {
   return Promise.all([
@@ -117,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   addfroms();
-
+  enableRealtimeValidation();
   //radio button listeners
   const passengerRadios = document.querySelectorAll('input[name="passengers"]');
   passengerRadios.forEach((radio) => {
@@ -178,27 +179,31 @@ function addfroms() {
                         </div>
     <div class="flex md:flex-row flex-col gap-4">
                                 <div class="space-y-6 md:w-1/2">
-                                    <div>
+                                    <div class="h-24">
                                         <label class="block text-gray-300 mb-2">First Name</label>
                                         <input type="text" class="form-input w-full px-4 py-3"
                                             placeholder="Enter your first name">
+                                        <div class="error-text text-red-400 text-sm mt-1 hidden"></div>
                                     </div>
-                                    <div>
+                                    <div class="h-24">
                                         <label class="block text-gray-300 mb-2">Email Address</label>
                                         <input type="text" class="form-input w-full px-4 py-3"
                                             placeholder="Enter your email">
+                                        <div class="error-text text-red-400 text-sm mt-1 hidden"></div>
                                     </div>
                                 </div>
                                 <div class="space-y-6 md:w-1/2">
-                                    <div>
+                                    <div class="h-24">
                                         <label class="block text-gray-300 mb-2">Last Name</label>
                                         <input type="text" class="form-input w-full px-4 py-3"
                                             placeholder="Enter your last name">
+                                        <div class="error-text text-red-400 text-sm mt-1 hidden"></div>
                                     </div>
-                                    <div>
+                                    <div class="h-24">
                                         <label class="block text-gray-300 mb-2">Phone Number</label>
                                         <input type="text" class="form-input w-full px-4 py-3"
                                             placeholder="Enter your phone number">
+                                        <div class="error-text text-red-400 text-sm mt-1 hidden"></div>
                                     </div>
                                 </div>
                             </div>
@@ -207,6 +212,7 @@ function addfroms() {
                                 <label class="block text-gray-300 mb-2">Special Requirements</label>
                                 <textarea type="text" class="form-input w-full px-4 py-3"
                                     placeholder="Any special requirments or notes..."></textarea>
+                                <div class="error-text text-red-400 text-sm mt-1 hidden"></div>
                             </div>
                             </div>
                             `;
@@ -233,31 +239,36 @@ function addPassengerformbtn(event) {
             </div>
             <div class="flex md:flex-row flex-col gap-4">
                 <div class="space-y-6 md:w-1/2">
-                    <div>
+                    <div class="h-24">
                         <label class="block text-gray-300 mb-2">First Name</label>
                         <input type="text" class="form-input w-full px-4 py-3" placeholder="Enter your first name">
+                        <div class="error-text text-red-400 text-sm mt-1 hidden"></div>
                     </div>
-                    <div>
+                    <div class="h-24">
                         <label class="block text-gray-300 mb-2">Email Address</label>
                         <input type="text" class="form-input w-full px-4 py-3" placeholder="Enter your email">
-                    </div>
+                        <div class="error-text text-red-400 text-sm mt-1 hidden"></div>
+                        </div>
                 </div>
                 <div class="space-y-6 md:w-1/2">
-                    <div>
+                    <div class="h-24">
                         <label class="block text-gray-300 mb-2">Last Name</label>
                         <input type="text" class="form-input w-full px-4 py-3" placeholder="Enter your last name">
-                    </div>
-                    <div>
+                        <div class="error-text text-red-400 text-sm mt-1 hidden"></div>
+                        </div>
+                    <div class="h-24">
                         <label class="block text-gray-300 mb-2">Phone Number</label>
                         <input type="text" class="form-input w-full px-4 py-3" placeholder="Enter your phone number">
-                    </div>
+                        <div class="error-text text-red-400 text-sm mt-1 hidden"></div>
+                        </div>
                 </div>
             </div>
 
             <div class="mt-[24px]">
                 <label class="block text-gray-300 mb-2">Special Requirements</label>
                 <textarea type="text" class="form-input w-full px-4 py-3" placeholder="Any special requirements or notes..."></textarea>
-            </div>
+            <div class="error-text text-red-400 text-sm mt-1 hidden"></div>
+                </div>
         </div>
     `;
 
@@ -339,4 +350,85 @@ function getAllPassengerData() {
     });
     console.log(passengerData)
     return passengerData;
+}
+
+const confirmbooking = document.getElementById("confirmbooking");
+
+confirmbooking.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    if (!validatePassengerForms()) {
+        alert("Please fix the highlighted fields.");
+        return;
+    }
+
+    alert("Booking confirmed!");
+});
+
+//form validation for tehe fields
+function validateField(input, regex, message) {
+    const errorDiv = input.nextElementSibling;
+
+    if (!regex.test(input.value.trim())) {
+        input.classList.add("border-red-500");
+        errorDiv.textContent = message;
+        errorDiv.classList.remove("hidden");
+        errorDiv.classList.add("fade-in");
+        return false;
+    } else {
+        input.classList.remove("border-red-500");
+        errorDiv.textContent = "";
+        errorDiv.classList.add("hidden");
+        errorDiv.classList.remove("fade-in");
+        return true;
+    }
+}
+
+function validateAllPassengers() {
+    const forms = pasengersinfos.querySelectorAll(".passform");
+    let allValid = true;
+
+    const nameRegex = /^[A-Za-z]{2,}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^(?:\+212|0)(6|7)[0-9]{8}$/;
+
+    forms.forEach(form => {
+        const inputs = form.querySelectorAll("input");
+
+        const firstName = inputs[0];
+        const email = inputs[1];
+        const lastName = inputs[2];
+        const phone = inputs[3];
+
+        const validFN = validateField(firstName, nameRegex, "First name must be at least 2 letters.");
+        const validEmail = validateField(email, emailRegex, "Enter a valid email (example@mail.com).");
+        const validLN = validateField(lastName, nameRegex, "Last name must be at least 2 letters.");
+        const validPhone = validateField(phone, phoneRegex, "Phone number must start with 06/07 or +2126/+2127.");
+
+        if (!validFN || !validEmail || !validLN || !validPhone) {
+            allValid = false;
+        }
+    });
+
+    return allValid;
+}
+
+function enableRealtimeValidation() {
+    pasengersinfos.addEventListener("input", function(e) {
+        validateAllPassengers();
+        toggleSubmitButton();
+    });
+}
+
+function toggleSubmitButton() {
+    const confirmBooking = document.getElementById("confirmBooking");
+    const valid = validateAllPassengers();
+
+    confirmBooking.disabled = !valid;
+
+    if (!valid) {
+        confirmBooking.classList.add("opacity-50", "cursor-not-allowed");
+    } else {
+        confirmBooking.classList.remove("opacity-50", "cursor-not-allowed");
+    }
 }
