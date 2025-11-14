@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function logout() {
   localStorage.removeItem("currentUser");
-  location.reload();
+  window.location.href = "index.html";
 }
 
 function addingtonav() {

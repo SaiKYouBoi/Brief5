@@ -524,7 +524,5 @@ function saveBooking(booking) {
    const all = JSON.parse(localStorage.getItem(key)) || [];
     all.push(booking);
 
-  all.push(booking);
-
   localStorage.setItem(key, JSON.stringify(all));
 }
