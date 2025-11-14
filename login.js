@@ -42,8 +42,12 @@ document.addEventListener("DOMContentLoaded", function () {
       email: "iliaselggames@gmail.com",
       password: "ilias2002",
       name: "SaikYouBoi",
-      joinDate: "2024-01-15",
-      membership: "Explorer",
+    },
+     {
+      id: "2",
+      email: "ahmed@gmail.com",
+      password: "ahmed2007",
+      name: "Ahmed",
     },
   ];
   const loginform = document.getElementById("loginForm");

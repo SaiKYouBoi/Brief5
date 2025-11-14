@@ -130,22 +130,20 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // add passenger button listener
-    if (addingpassanger) {
-        addingpassanger.addEventListener("click", addPassengerformbtn);
-    }
+  if (addingpassanger) {
+    addingpassanger.addEventListener("click", addPassengerformbtn);
+  }
 });
 
 function addfroms() {
   if (!pasengersinfos) return;
   pasengersinfos.innerHTML = "";
 
-
   let count = 1;
   if (selectedPassengers == "SoloTravaler") {
     addingpassanger.disabled = true;
     addingpassanger.classList.add("cursor-not-allowed", "opacity-60");
     addingpassanger.classList.remove("cursor-pointer");
-    
   } else if (selectedPassengers == "Couple") {
     addingpassanger.disabled = true;
     addingpassanger.classList.add("cursor-not-allowed", "opacity-60");
@@ -169,7 +167,6 @@ function addfroms() {
   }
 
   for (let i = 0; i < count; i++) {
-
     pasengersinfos.innerHTML += `
     <div class="passform">
     <div class="text-left mb-8 mt-4">
@@ -217,22 +214,21 @@ function addfroms() {
                             </div>
                             `;
   }
-calculateTotalCost();
+  calculateTotalCost();
 }
 
 function addPassengerformbtn(event) {
-    event.preventDefault();
-    const existingforms = pasengersinfos.querySelectorAll(".passform")
-    console.log(existingforms)
-    const nextpass = existingforms.length + 1
+  event.preventDefault();
+  const existingforms = pasengersinfos.querySelectorAll(".passform");
+  console.log(existingforms);
+  const nextpass = existingforms.length + 1;
 
-    
-    if(nextpass>6){
-        alert('Maximum 6 passengers allowed for group bookings');
-        return;
-    }
+  if (nextpass > 6) {
+    alert("Maximum 6 passengers allowed for group bookings");
+    return;
+  }
 
-    const newFormHTML = `
+  const newFormHTML = `
         <div class="passform">
             <div class="text-left mb-8 mt-4">
                 <h1 class="font-orbitron text-2xl mb-2 text-glow">Person N°${nextpass}: </h1>
@@ -272,14 +268,14 @@ function addPassengerformbtn(event) {
         </div>
     `;
 
-    pasengersinfos.insertAdjacentHTML('beforeend', newFormHTML);
+  pasengersinfos.insertAdjacentHTML("beforeend", newFormHTML);
 
-    if (nextpass === 6) {
-        addingpassanger.disabled = true;
-        addingpassanger.classList.add("cursor-not-allowed", "opacity-60");
-        addingpassanger.classList.remove("cursor-pointer");
-    }
-    calculateTotalCost();
+  if (nextpass === 6) {
+    addingpassanger.disabled = true;
+    addingpassanger.classList.add("cursor-not-allowed", "opacity-60");
+    addingpassanger.classList.remove("cursor-pointer");
+  }
+  calculateTotalCost();
 }
 
 // THE DATA I NEED:
@@ -292,204 +288,243 @@ function addPassengerformbtn(event) {
 // travel cost = Destination price + priceperday * tDuration * 2
 
 function calculateTotalCost() {
+  const totalCostSpan = document.getElementById("totalCost");
 
-    const totalCostSpan = document.getElementById("totalCost");
+  const destinationId = destinationSelect.value;
+  const destination = destinations.find((dest) => dest.id === destinationId);
 
-    const destinationId = destinationSelect.value;
-    const destination = destinations.find(dest => dest.id === destinationId);
+  if (!destination) {
+    totalCostSpan.textContent = "0";
+    return;
+  }
 
-    if (!destination) {
-        totalCostSpan.textContent = "0";
-        return;
-    }
+  const accommodation = accommodations.find(
+    (acc) => acc.id === selectedAccommodation
+  );
 
-    
-    const accommodation = accommodations.find(acc => acc.id === selectedAccommodation);
+  if (!accommodation) {
+    totalCostSpan.textContent = destination.price; // only destination price
+    return;
+  }
 
-    if (!accommodation) {
-        totalCostSpan.textContent = destination.price; // only destination price
-        return;
-    }
+  const destPrice = destination.price;
+  const pricePerDay = accommodation.pricePerDay;
+  const duration = destination.tDuration;
 
-    const destPrice = destination.price;
-    const pricePerDay = accommodation.pricePerDay;
-    const duration = destination.tDuration;
+  const numberOfPassengers =
+    pasengersinfos.querySelectorAll(".passform").length;
 
-    const numberOfPassengers = pasengersinfos.querySelectorAll(".passform").length;
-    
-  
-    const accomPerPerson = pricePerDay * duration * 2;
+  const accomPerPerson = pricePerDay * duration * 2;
 
-    const total = destPrice + (accomPerPerson * numberOfPassengers);
+  const total = destPrice + accomPerPerson * numberOfPassengers;
 
-    totalCostSpan.textContent = total.toLocaleString();
+  totalCostSpan.textContent = total.toLocaleString();
 }
 
 const confirmbooking = document.getElementById("confirmbooking");
 
 confirmbooking.addEventListener("click", function (event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    if (destinationSelect.value === "") {
-        alert("Please select a destination.");
-        return;
-    }
+  if (destinationSelect.value === "") {
+    alert("Please select a destination.");
+    return;
+  }
 
-    const dateinput = document.getElementById("departuredate");
-    if (!dateinput.value) {
-        alert("Please select a departure date.");
-        return;
-    }
+  const dateinput = document.getElementById("departuredate");
+  if (!dateinput.value) {
+    alert("Please select a departure date.");
+    return;
+  }
 
-    if (!validateAllPassengers()) {
-        alert("Please fix the highlighted fields.");
-        return;
-    }
+  if (!validateAllPassengers()) {
+    alert("Please fix the highlighted fields.");
+    return;
+  }
 
-    if (!selectedAccommodation) {
-        alert("Please select an accommodation type.");
-        return;
-    }
+  if (!selectedAccommodation) {
+    alert("Please select an accommodation type.");
+    return;
+  }
 
-    alert("Booking confirmed!");
+  const user = JSON.parse(localStorage.getItem("currentUser"));
 
-    const booking = collectBookingData();
-    saveBooking(booking);
+  //booking if not logged in
+  if (!user || !user.isLoggedIn) {
+    alert("You must log in to confirm a booking.");
+    window.location.href = "login.html";
+    return;
+  }
 
-    alert("Your booking has been successfully saved!");
+  alert("Booking confirmed!");
 
-    window.location.href = "mybooking.html"; 
+  const booking = collectBookingData();
+  saveBooking(booking);
+
+  alert("Your booking has been successfully saved!");
+
+  window.location.href = "mybooking.html";
 });
 
 //form validation for tehe fields
 function validateField(input, regex, message) {
-    const errorDiv = input.nextElementSibling;
+  const errorDiv = input.nextElementSibling;
 
-    if (!regex.test(input.value.trim())) {
-        input.classList.add("border-red-500");
-        errorDiv.textContent = message;
-        errorDiv.classList.remove("hidden");
-        errorDiv.classList.add("fade-in");
-        return false;
-    } else {
-        input.classList.remove("border-red-500");
-        errorDiv.textContent = "";
-        errorDiv.classList.add("hidden");
-        errorDiv.classList.remove("fade-in");
-        return true;
-    }
+  if (!regex.test(input.value.trim())) {
+    input.classList.add("border-red-500");
+    errorDiv.textContent = message;
+    errorDiv.classList.remove("hidden");
+    errorDiv.classList.add("fade-in");
+    return false;
+  } else {
+    input.classList.remove("border-red-500");
+    errorDiv.textContent = "";
+    errorDiv.classList.add("hidden");
+    errorDiv.classList.remove("fade-in");
+    return true;
+  }
 }
 
 function validateAllPassengers() {
-    const forms = pasengersinfos.querySelectorAll(".passform");
-    let allValid = true;
+  const forms = pasengersinfos.querySelectorAll(".passform");
+  let allValid = true;
 
-    const nameRegex = /^[A-Za-z]{2,}$/;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^(?:\+212|0)(6|7)[0-9]{8}$/;
+  const nameRegex = /^[A-Za-z]{2,}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^(?:\+212|0)(6|7)[0-9]{8}$/;
 
-    forms.forEach(form => {
-        const inputs = form.querySelectorAll("input");
+  forms.forEach((form) => {
+    const inputs = form.querySelectorAll("input");
 
-        const firstName = inputs[0];
-        const email = inputs[1];
-        const lastName = inputs[2];
-        const phone = inputs[3];
+    const firstName = inputs[0];
+    const email = inputs[1];
+    const lastName = inputs[2];
+    const phone = inputs[3];
 
-        const validFN = validateField(firstName, nameRegex, "First name must be at least 2 letters.");
-        const validEmail = validateField(email, emailRegex, "Enter a valid email (example@mail.com).");
-        const validLN = validateField(lastName, nameRegex, "Last name must be at least 2 letters.");
-        const validPhone = validateField(phone, phoneRegex, "Phone number must start with 06/07 or +2126/+2127.");
+    const validFN = validateField(
+      firstName,
+      nameRegex,
+      "First name must be at least 2 letters."
+    );
+    const validEmail = validateField(
+      email,
+      emailRegex,
+      "Enter a valid email (example@mail.com)."
+    );
+    const validLN = validateField(
+      lastName,
+      nameRegex,
+      "Last name must be at least 2 letters."
+    );
+    const validPhone = validateField(
+      phone,
+      phoneRegex,
+      "Phone number must start with 06/07 or +2126/+2127."
+    );
 
-        if (!validFN || !validEmail || !validLN || !validPhone) {
-            allValid = false;
-        }
-    });
+    if (!validFN || !validEmail || !validLN || !validPhone) {
+      allValid = false;
+    }
+  });
 
-    return allValid;
+  return allValid;
 }
 
 function enableRealtimeValidation() {
-    pasengersinfos.addEventListener("input", function(e) {
-        validateAllPassengers();
-        toggleSubmitButton();
-    });
+  pasengersinfos.addEventListener("input", function (e) {
+    validateAllPassengers();
+    toggleSubmitButton();
+  });
 }
 
 function toggleSubmitButton() {
-    const valid = validateAllPassengers();
+  const valid = validateAllPassengers();
 
-    confirmbooking.disabled = !valid;
+  confirmbooking.disabled = !valid;
 
-    if (!valid) {
-        confirmbooking.classList.add("opacity-50", "cursor-not-allowed");
-    } else {
-        confirmbooking.classList.remove("opacity-50", "cursor-not-allowed");
-    }
+  if (!valid) {
+    confirmbooking.classList.add("opacity-50", "cursor-not-allowed");
+  } else {
+    confirmbooking.classList.remove("opacity-50", "cursor-not-allowed");
+  }
 }
 
 // get passangers data
 function getAllPassengerData() {
-    const passengerForms = pasengersinfos.querySelectorAll('.passform');
-    const passengerData = [];
+  const passengerForms = pasengersinfos.querySelectorAll(".passform");
+  const passengerData = [];
 
-    passengerForms.forEach((form, index) => {
-        const passengerNumber = index + 1;
+  passengerForms.forEach((form, index) => {
+    const passengerNumber = index + 1;
 
-        const inputs = form.querySelectorAll('input');
-        const textarea = form.querySelector('textarea');
+    const inputs = form.querySelectorAll("input");
+    const textarea = form.querySelector("textarea");
 
-        const data = {
-            passengerNumber: passengerNumber,
-            firstName: inputs[0]?.value || '',
-            email: inputs[1]?.value || '',
-            lastName: inputs[2]?.value || '',
-            phone: inputs[3]?.value || '',
-            requirements: textarea?.value || ''
-        };
+    const data = {
+      passengerNumber: passengerNumber,
+      firstName: inputs[0]?.value || "",
+      email: inputs[1]?.value || "",
+      lastName: inputs[2]?.value || "",
+      phone: inputs[3]?.value || "",
+      requirements: textarea?.value || "",
+    };
 
-        passengerData.push(data);
-    });
-    console.log(passengerData)
-    return passengerData;
+    passengerData.push(data);
+  });
+  console.log(passengerData);
+  return passengerData;
 }
 
 // colelcting booking data
 
 function collectBookingData() {
-    const destinationId = destinationSelect.value;
-    const destination = destinations.find(d => d.id === destinationId);
+  
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  if (!user) return null;
 
-    const accommodation = accommodations.find(a => a.id === selectedAccommodation);
+  const destinationId = destinationSelect.value;
+  const destination = destinations.find((d) => d.id === destinationId);
 
-    const passengers = getAllPassengerData();
+  const accommodation = accommodations.find(
+    (a) => a.id === selectedAccommodation
+  );
 
-    const booking = {
-        id: "bk-" + Date.now(),
-        user: JSON.parse(localStorage.getItem("currentUser")),
-        destination: {
-            id: destination.id,
-            name: destination.name,
-            price: destination.price,
-            tDuration: destination.tDuration
-        },
-        accommodation: {
-            id: accommodation.id,
-            name: accommodation.name,
-            pricePerDay: accommodation.pricePerDay
-        },
-        passengers: passengers,
-        totalCost: document.getElementById("totalCost").textContent,
-        bookingDate: document.getElementById("departuredate").value
-    };
+  const passengers = getAllPassengerData();
 
-    return booking;
+  const booking = {
+    id: "bk-" + Date.now(),
+    userId: user.id,
+    destination: {
+      id: destination.id,
+      name: destination.name,
+      price: destination.price,
+      tDuration: destination.tDuration,
+    },
+    accommodation: {
+      id: accommodation.id,
+      name: accommodation.name,
+      pricePerDay: accommodation.pricePerDay,
+    },
+    passengers: passengers,
+    totalCost: document.getElementById("totalCost").textContent,
+    bookingDate: document.getElementById("departuredate").value,
+  };
+
+  return booking;
 }
 
 function saveBooking(booking) {
-    const all = JSON.parse(localStorage.getItem("bookings")) || [];
+  const user = JSON.parse(localStorage.getItem("currentUser"));
 
+  // hadi for saftey
+  if (!user) return;
+
+  const key = "bookings_" + user.id;
+  
+   const all = JSON.parse(localStorage.getItem(key)) || [];
     all.push(booking);
 
-    localStorage.setItem("bookings", JSON.stringify(all));  
+  all.push(booking);
+
+  localStorage.setItem(key, JSON.stringify(all));
 }
